@@ -24,6 +24,13 @@ class Company(Base):
     def __repr__(self):
         return f"<Company {self.name}>"
 
+    def give_freebie(self, dev, item_name, value):
+        free = Freebie(
+            item_name=item_name, value=value, dev_id=dev.id, company_id=self.id
+        )
+        print(free)
+        return free
+
 
 class Dev(Base):
     __tablename__ = "devs"
@@ -50,7 +57,7 @@ class Freebie(Base):
     dev_id = Column(Integer(), ForeignKey("devs.id"))
 
     def __repr__(self):
-        return f"<Freebie {self.item_name}"
+        return f"<Freebie {self.item_name}>"
 
     def print_details(self):
         return f"{self.dev.name} owns a {self.item_name} from {self.company.name}"
